@@ -173,3 +173,28 @@ function controls(){
         document.getElementById('controlsorclose').parentElement.style.backgroundColor = '';
     } 
 }
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "r") {
+        randomize();
+    }
+    if (event.key === " ") {
+        reset();
+    }
+});
+
+function reset(){
+    for (let r = 0; r < curstate.length; r++) {
+        for (let c = 0; c < curstate[r].length; c++) {
+            curstate[r][c] = 0;
+        }
+    }
+}
+
+function randomize(){
+    for (let r = 0; r < curstate.length; r++) {
+        for (let c = 0; c < curstate[r].length; c++) {
+            curstate[r][c] = Math.floor(Math.random() * 2);
+        }
+    }
+}
