@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Game of Life</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="p5.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id='infopopup'>
+            <p>"Whether its a game or not is another funny thing, I call it a no player game"<br />
+            <span class='right'>- John Conway</span></p>
+            <p>The game of life is not a conventional game with players and win conditions, but a 
+            simulation consisting of a grid of cells with simple rules goverining the evolution 
+            of patterns formed by these cells.</p>
+            <p>In the game, a cell can either be alive or dead. The state of being alive is denoted 
+            by 1 (green) and the dead cells are zeros (red).</p>
+            <p>Each state of the board is like a moment in time. The state of the board in the next 
+            moment depends on 4 rules.
+            Any live cell with fewer than two live neighbours dies.
+            Any live cell with two or three live neighbours lives on to the next generation.
+            Any live cell with more than three live neighbours dies.
+            Any dead cell with exactly three live neighbours becomes a live cell.</p>
+            <br />
+            <br />
+            <p>"Why?" <br />
+            <span class='right'>-You(probably)</span></p>
+            <p>Because we are going to mars.(real)</p>
+            <p>This game is an example of cellular automation. Given any possible cell state, it is
+            impossible to predict what the board will look like after say, 50 steps without actually
+            running the simulation. Put more rigourously, given 2 board states A and B, there 
+            exisits no algorithm that can predict whether state B will appear at any point when
+            state A is simulated.</p>
+            <p>The game of life is Turing complete. This means that the game can perform any computation that a Turing machine can. So.. yes, given enough cells, you can build a computer inside the game. Feel free to try it yourself.
+            (Actually try, make some cool patterns, see if you can find board states that do not 
+            change over time, there are 5 in total)(click on controls)</p>
+            <br />
+            <br />
+            <p>How to go to mars(Tutorial)</p>
+            <p>Note: This is not a tutorial, any limbs lost while attempting to following it will not be covered by the author.</p>
+            <p>(Assuming you have created the universe already) <br />
+            Step 1 : Send robots supplied with sufficient amounts of hydogen, a chemical plant 
+            and a small nuclear reactor. <br />
+            Step 2: Once there, the robots should start self replicating and carrying out chemical 
+            processes that release oxygen and methane into the atmosphere. <br />
+            Step 2.5: Assuming humans have found a way to generate magnetic fields strong
+            enough to sustain mars, get the robots to do that as well.<br />
+            Step 3: Wait.<br />
+            Step 4: Do step 3 again.<br />
+            Step 5: Once the atmosphere and magnetic field are ready, you can send humans to
+            mars.<br />
+            Step 6: idk man, I can't read more wikipedia articles on mars colonisation ok, like, what tf is a Trans-Mars injection. Leave the rest of the steps to Elon Musk prob, I assume he has morphed into a soulless robotic husk of his former self by this point.</p>
+            <br />
+            <br />
+            <p>"Never go off on a tangent related to colonizing mars while writing a mediocre blog post about cellular automata." <br />
+            <span class='right'>- Sun Tsu, Art of War</span></p>
+            <p>
+            <br />
+            Going back to the game of life, how do you actually make self replicating systems?
+            Consider machine A that can build copies of machine B. A must be more complex than
+            B, right? John von Neumann, in his 2D system for cellular automata, found a particular pattern would self replicate. This design is called the tessellation model. It consisted of a configuration of 200,000 cells and 29 board states. So, in this case machines A and B are the same.</p>
+            <p>But this was complex and messy. Conway wanted to find a much simpler system that could exhibit the same self replicating behaviour. Well, he did it.</p>
+            <p>The game of life achieves universal cellular automatation to the point where the game itself can be built within the game.
+            </p>
+            <p>John Conway's Game of Life is not a conventional game with players and win conditions. It has however, like any popular game, captured the intrest of millions of people around the world.</p>
+            <br />
+            <hr>
+            <br />
+            <br />
+            <p>I recommend trying to find oscillators(patterns that repeat after a certain number
+            of board states) or spaceships(patterns that move through the grid while oscillating)
+            before heading further. Consider this a spoiler warning if you will.</p>
+            <p>Here are some fun YouTube videos / sources that I used:</p>
+            <ul>
+                <li><a href="https://youtu.be/Kk2MH9O4pXY?si=WsNe2aIkeYYOCkqd" target="_blank">https://youtu.be/Kk2MH9O4pXY?si=WsNe2aIkeYYOCkqd</a></li>
+                <li><a href="https://youtu.be/R9Plq-D1gEk?si=pa45HF1zxRHyFZlZ" target="_blank">https://youtu.be/R9Plq-D1gEk?si=pa45HF1zxRHyFZlZ</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Conway's_Game_of_Life" target="_blank">https://en.wikipedia.org/wiki/Conway's_Game_of_Life (obviously)</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Colonization_of_Mars" target="_blank">https://en.wikipedia.org/wiki/Colonization_of_Mars (yes)</a></li>
+                <li><a href="https://youtu.be/viA-HIW-2C4?si=FoncCdTJdhz5GAXr" target="_blank">https://youtu.be/viA-HIW-2C4?si=FoncCdTJdhz5GAXr</a></li>
+            </ul>        
+        </div>
+        <div id='controlspopup'>
+            <p>
+                (unfinished)<br />
+                Working on it(prob watching mars colonization documentaries) <br />
+                mouseclick = toggle dead or alive<br />
+                click info for info, press the same button to close<br />
+                same with controls<br />
+                start button to toggle game<br />
+                change rows, cols, and framerate at the very top of script.js to change those for now<br />
+        </div>
+        <div class='container'>
+            <div class = 'left'>
+                <h1>CONWAY'S GAME OF LIFE</h1>
+                
+                <div id='options'>
+                    <button onclick="info()" class='button'>
+                        <h3 id='infoorclose'>Info</h3>
+                    </button>
+
+                    <button onclick="controls()" class='button'>
+                        <h3 id='controlsorclose'>Controls</h3>
+                    </button>
+
+                    <button onclick="toggle()" class='button'>
+                        <h3 id='startorstop'>Start</h3>
+                    </button>           
+                </div>
+            </div>
+
+            <div id='canvas'></div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+
+</html>
