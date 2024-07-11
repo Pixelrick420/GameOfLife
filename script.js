@@ -1,48 +1,74 @@
-const cols = 80;
-const rows = 48;
+const cols = 150;
+const rows = 100;
 const framerate = 40;
 
 
-
 const gap = 0.3;
-let ispaused = true;
-var curstate = [];
+let isPaused = true;  
+let curState = [];  
 const size = Math.min(Math.floor(1200 / cols), Math.floor(700 / rows));
+let canvas;
 
-function setup(){
+function setup() {
     smooth();
     frameRate(framerate);
 
-    canvas = createCanvas(cols*size, rows*size);
+    canvas = createCanvas(cols * size, rows * size);
     canvas.parent('canvas');
 
-    for (var r = 0; r < rows; r++) {
-        var row = [];
-        for (var c = 0; c < cols; c++) {
-            row.push(0);//Math.floor(Math.random() * 2));
+    for (let r = 0; r < rows; r++) {
+        let row = []; 
+        for (let c = 0; c < cols; c++) {
+            row.push(0);
         }
-        curstate.push(row);
+        curState.push(row);
     }
+    draw();
+    noLoop();
 }
 
 function draw() {
     background(0);
 
-    for (let r = 0; r < curstate.length; r++) {
-        for (let c = 0; c < curstate[r].length; c++) {
-            showrect(r, c, curstate[r][c]);
-        }
-    }
-    if (!ispaused) {
-        updateboard();
+    drawGrid();
+    if (!isPaused) {  
+        updateBoard();   
     }
 }
 
-function showrect(row, col, isalive) {
+function drawGrid() {
+    noStroke();
+    fill('#DD5555'); 
+    beginShape(QUADS);
+
+    for (let r = 0; r < curState.length; r++) {
+        for (let c = 0; c < curState[r].length; c++) {
+            const x = c * size - gap;
+            const y = r * size - gap;
+            const isAlive = curState[r][c];
+
+            if (isAlive) {
+                fill('#55CC55'); 
+            } else {
+                fill('#DD5555'); 
+            }
+
+            vertex(x, y);
+            vertex(x + size - (gap * 2), y);
+            vertex(x + size - (gap * 2), y + size - (gap * 2));
+            vertex(x, y + size - (gap * 2));
+        }
+    }
+
+    endShape();
+}
+
+
+function showRect(row, col, isAlive) {    
     const x = col * size - gap; 
     const y = row * size - gap; 
     
-    if (isalive) {
+    if (isAlive) {
         fill('#55CC55');
         stroke(86, 78, 88);
         strokeWeight(1); 
@@ -55,27 +81,27 @@ function showrect(row, col, isalive) {
     rect(x, y, size - (gap * 2), size - (gap * 2), size / 6);
 }
 
-function updateboard() {
-    const rows = curstate.length;
-    const cols = curstate[0].length;
-    const newstate = Array.from({ length: rows }, () => Array(cols).fill(0));
+function updateBoard() {   
+    const rows = curState.length;
+    const cols = curState[0].length;
+    const newState = Array.from({ length: rows }, () => Array(cols).fill(0));  
 
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-            const liveneib = countliveneighbours(r, c);
-            if (curstate[r][c] === 1) {
-                newstate[r][c] = (liveneib === 2 || liveneib === 3) ? 1 : 0;
+            const liveNeib = countLiveNeighbours(r, c); 
+            if (curState[r][c] === 1) {
+                newState[r][c] = (liveNeib === 2 || liveNeib === 3) ? 1 : 0;
             } else {
-                newstate[r][c] = (liveneib === 3) ? 1 : 0;
+                newState[r][c] = (liveNeib === 3) ? 1 : 0;
             }
         }
     }
-    curstate = newstate;
+    curState = newState;  
 }
 
-function countliveneighbours(i, j) {
-    const rows = curstate.length;
-    const cols = curstate[0].length;
+function countLiveNeighbours(i, j) {   
+    const rows = curState.length;
+    const cols = curState[0].length;
     let count = 0;
 
     for (let x = -1; x <= 1; x++) {
@@ -84,7 +110,7 @@ function countliveneighbours(i, j) {
             const ni = i + x;
             const nj = j + y;
             if (ni >= 0 && ni < rows && nj >= 0 && nj < cols) {
-                count += curstate[ni][nj];
+                count += curState[ni][nj];  
             }
         }
     }
@@ -92,24 +118,24 @@ function countliveneighbours(i, j) {
     return count;
 }
 
-
-function toggle(){
-    if(document.getElementById('controlsorclose').textContent === 'Close'){
+function toggle() {
+    if (document.getElementById('controlsorclose').textContent === 'Close') {
         document.getElementById('controlspopup').style.display = 'none';
         document.getElementById('controlsorclose').textContent = 'Controls';
         document.getElementById('controlsorclose').parentElement.style.backgroundColor = '';
     } 
-    if(document.getElementById('infoorclose').textContent === 'Close'){
+    if (document.getElementById('infoorclose').textContent === 'Close') {
         document.getElementById('infopopup').style.display = 'none';
         document.getElementById('infoorclose').textContent = 'Info';
         document.getElementById('infoorclose').parentElement.style.backgroundColor = '';
     }
-    ispaused = !ispaused;
-    if(ispaused){
+    isPaused = !isPaused;  
+    if (isPaused) {  
+        noLoop();
         document.getElementById('startorstop').textContent = 'Start';
         document.getElementById('startorstop').parentElement.style.backgroundColor = '';
-    }   
-    else{
+    } else {
+        loop();
         document.getElementById('startorstop').parentElement.style.backgroundColor = '#FF6666';
         document.getElementById('startorstop').textContent = 'Stop';
     }    
@@ -121,53 +147,50 @@ function mousePressed() {
         let clickedRow = Math.floor(mouseY / size);
         
         if (clickedCol >= 0 && clickedCol < cols && clickedRow >= 0 && clickedRow < rows) {
-            curstate[clickedRow][clickedCol] = 1 - curstate[clickedRow][clickedCol];
+            curState[clickedRow][clickedCol] = 1 - curState[clickedRow][clickedCol];  
+            showRect(clickedRow, clickedCol, curState[clickedRow][clickedCol]);
         }
     }
 }
 
-function info(){
-    if(document.getElementById('controlsorclose').textContent === 'Close'){
+function info() {
+    if (document.getElementById('controlsorclose').textContent === 'Close') {
         document.getElementById('controlspopup').style.display = 'none';
         document.getElementById('controlsorclose').textContent = 'Controls';
         document.getElementById('controlsorclose').parentElement.style.backgroundColor = '';
     } 
-    if(document.getElementById('infoorclose').textContent === 'Info'){
+    if (document.getElementById('infoorclose').textContent === 'Info') {
         document.getElementById('infoorclose').textContent = 'Close';
         document.getElementById('infopopup').style.display = 'block';
         document.getElementById('infoorclose').parentElement.style.backgroundColor = '#FF6666';
-        ispaused = true;
-        if(document.getElementById('startorstop').textContent == 'Stop'){
+        isPaused = true;  
+        if (document.getElementById('startorstop').textContent == 'Stop') {
             document.getElementById('startorstop').textContent = 'Start';
             document.getElementById('startorstop').parentElement.style.backgroundColor = '';
         }
-    }
-
-    else if(document.getElementById('infoorclose').textContent === 'Close'){
+    } else if (document.getElementById('infoorclose').textContent === 'Close') {
         document.getElementById('infopopup').style.display = 'none';
         document.getElementById('infoorclose').textContent = 'Info';
         document.getElementById('infoorclose').parentElement.style.backgroundColor = '';
     }  
 }
 
-function controls(){
-    if(document.getElementById('infoorclose').textContent === 'Close'){
+function controls() {
+    if (document.getElementById('infoorclose').textContent === 'Close') {
         document.getElementById('infopopup').style.display = 'none';
         document.getElementById('infoorclose').textContent = 'Info';
         document.getElementById('infoorclose').parentElement.style.backgroundColor = '';
     }
-    if(document.getElementById('controlsorclose').textContent === 'Controls'){
+    if (document.getElementById('controlsorclose').textContent === 'Controls') {
         document.getElementById('controlsorclose').textContent = 'Close';
         document.getElementById('controlspopup').style.display = 'block';
         document.getElementById('controlsorclose').parentElement.style.backgroundColor = '#FF6666';
-        ispaused = true;
-        if(document.getElementById('startorstop').textContent == 'Stop'){
+        isPaused = true;  
+        if (document.getElementById('startorstop').textContent == 'Stop') {
             document.getElementById('startorstop').textContent = 'Start';
             document.getElementById('startorstop').parentElement.style.backgroundColor = '';
         }
-    }
-
-    else if(document.getElementById('controlsorclose').textContent === 'Close'){
+    } else if (document.getElementById('controlsorclose').textContent === 'Close') {
         document.getElementById('controlspopup').style.display = 'none';
         document.getElementById('controlsorclose').textContent = 'Controls';
         document.getElementById('controlsorclose').parentElement.style.backgroundColor = '';
@@ -183,18 +206,18 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-function reset(){
-    for (let r = 0; r < curstate.length; r++) {
-        for (let c = 0; c < curstate[r].length; c++) {
-            curstate[r][c] = 0;
+function reset() {
+    for (let r = 0; r < curState.length; r++) {  
+        for (let c = 0; c < curState[r].length; c++) {  
+            curState[r][c] = 0;  
         }
     }
 }
 
-function randomize(){
-    for (let r = 0; r < curstate.length; r++) {
-        for (let c = 0; c < curstate[r].length; c++) {
-            curstate[r][c] = Math.floor(Math.random() * 1.3);
+function randomize() {
+    for (let r = 0; r < curState.length; r++) {  
+        for (let c = 0; c < curState[r].length; c++) {  
+            curState[r][c] = Math.floor(Math.random() * 1.3);  
         }
     }
 }
