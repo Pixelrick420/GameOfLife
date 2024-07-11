@@ -194,7 +194,7 @@ function reset(){
 function randomize(){
     for (let r = 0; r < curstate.length; r++) {
         for (let c = 0; c < curstate[r].length; c++) {
-            curstate[r][c] = Math.floor(Math.random() * 2);
+            curstate[r][c] = Math.floor(Math.random() * 1.3);
         }
     }
 }
