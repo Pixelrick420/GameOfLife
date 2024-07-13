@@ -4,8 +4,8 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #8b848c;
-    color: #ffffff;
+    background-color: #9EBAEE;
+    color: #000000;
     font-family: "Roboto Mono", monospace;
     font-optical-sizing: auto;
     font-weight: <weight>;
@@ -40,11 +40,11 @@ button{
 }
 
 h1{
-    font-size: 6vh;
+    font-size: 7vh;
     font-weight: 900;
     margin-left: 3vh;
-    text-shadow:  2px 2px 0px #000000;
     margin-bottom: 10vh;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 #options{
@@ -56,6 +56,7 @@ h1{
 }
 
 #infopopup{
+    color: #ffffff;
     display:none;
     position:absolute;
     z-index: 10;
@@ -75,7 +76,7 @@ h1{
 }
 
 canvas{
-    border: 0.5vh solid rgb(255, 255, 255);
+    border: 0.5vh solid rgb(101, 101, 101);
 }
 
 a{
@@ -84,6 +85,7 @@ a{
 }
 
 #controlspopup{
+    color: #ffffff;
     display:none;
     position:absolute;
     z-index: 10;
@@ -98,6 +100,19 @@ a{
     scroll-behavior: smooth;
 }
 
-button:hover{
-    box-shadow: 3px 3px 0px #000000;
+button:active {
+    box-shadow: none;
+    position: relative;
+    top: 4px;
+    left: 4px;
+} 
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #000000;
+    transition: box-shadow 0.1s ease, top 0.1s ease, left 0.1s ease;
+    outline: none;
+    position: relative;
 }
