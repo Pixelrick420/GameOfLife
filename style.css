@@ -54,10 +54,10 @@ h1{
     margin-left: 3vh;
 }
 
-#infopopup{
+#infopopup {
     color: #ffffff;
-    display:none;
-    position:absolute;
+    display: none;
+    position: absolute;
     z-index: 10;
     background-color: rgba(0, 0, 0, 0);
     overflow-y: auto;
@@ -68,6 +68,19 @@ h1{
     left: 65vh;
     padding-left: 7vh;
     scroll-behavior: smooth;
+}
+
+#infopopup::-webkit-scrollbar {
+    width: 12px; 
+}
+
+#infopopup::-webkit-scrollbar-thumb {
+    background-color: #9EBAEE; 
+    border-radius: 3vh; 
+}
+
+#infopopup::-webkit-scrollbar-track {
+    background-color:  rgba(0, 0, 0, 0);
 }
 
 .right{
@@ -97,6 +110,7 @@ a{
     left: 65vh;
     padding-left: 7vh;
     scroll-behavior: smooth;
+    scrollbar-width: thin; 
 }
 
 button:active {
@@ -112,7 +126,7 @@ button {
     font-size: 16px;
     cursor: pointer;
     box-shadow: 4px 4px 0px #000000;
-    transition: box-shadow 0.1s ease, top 0.1s ease, left 0.1s ease, background-position 0.5s ease, color 0.5s ease;
+    transition: box-shadow 0.2s ease, top 0.2s ease, left 0.2s ease, background-position 0.3s ease, color 0.2s ease;
     outline: none;
     position: relative;
     background-size: 200% 100%;

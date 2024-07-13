@@ -1,6 +1,6 @@
 const cols = 120;
 const rows = 75;
-const framerate = 8;
+const framerate = 10;
 
 
 const gap = 0.5;
