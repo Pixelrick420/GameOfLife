@@ -8,6 +8,7 @@ let isPaused = true;
 let curState = [];  
 const size = Math.min(Math.floor(1200 / cols), Math.floor(700 / rows));
 let canvas;
+let drawInterval;
 
 function setup() {
     smooth();
@@ -204,8 +205,19 @@ document.addEventListener("keydown", function(event) {
     if (event.key === " ") {
         reset();
     }
+    if (event.key === 's' && isPaused) {
+        isPaused = false;
+        setTimeout(updateBoard(), 200);
+    }
     draw();
     noLoop();
+});
+
+window.addEventListener('keyup', (event) => {
+    if (event.key === 's') {
+        isPaused = true;
+        clearInterval(drawInterval);
+    }
 });
 
 function reset() {

@@ -95,3 +95,7 @@ a{
     padding-left: 7vh;
     scroll-behavior: smooth;
 }
+
+button:hover{
+    box-shadow: 3px 3px 0px #ffffff;
+}
