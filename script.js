@@ -3,7 +3,7 @@ const rows = 75;
 const framerate = 8;
 
 
-const gap = 0.3;
+const gap = 0.5;
 let isPaused = true;  
 let curState = [];  
 const size = Math.min(Math.floor(1200 / cols), Math.floor(700 / rows));
@@ -32,7 +32,7 @@ function setup() {
 }
 
 function draw() {
-    background(100);
+    background(64);
 
     drawGrid();
     if (!isPaused) {  
@@ -50,11 +50,8 @@ function drawGrid() {
             const y = r * size - gap;
             const isAlive = curState[r][c];
 
-            if (isAlive) {
-                fill(aliveColor); 
-            } else {
-                fill(deadColor); 
-            }
+            var fillColor = isAlive ? aliveColor : deadColor;
+            fill(fillColor);
 
             vertex(x, y);
             vertex(x + size - (gap * 2), y);
@@ -81,7 +78,7 @@ function showRect(row, col, isAlive) {
         fill(deadColor);
     }
     
-    rect(x, y, size - (gap * 2), size - (gap * 2), size / 6);
+    rect(x, y, size - (gap * 2), size - (gap * 2));
 }
 
 function updateBoard() {   
@@ -125,21 +122,21 @@ function toggle() {
     if (document.getElementById('controlsorclose').textContent === 'Close') {
         document.getElementById('controlspopup').style.display = 'none';
         document.getElementById('controlsorclose').textContent = 'Controls';
-        document.getElementById('controlsorclose').parentElement.style.backgroundColor = '';
+        document.getElementById('controlsorclose').parentElement.classList.remove('pressed');
     } 
     if (document.getElementById('infoorclose').textContent === 'Close') {
         document.getElementById('infopopup').style.display = 'none';
         document.getElementById('infoorclose').textContent = 'Info';
-        document.getElementById('infoorclose').parentElement.style.backgroundColor = '';
+        document.getElementById('infoorclose').parentElement.classList.remove('pressed');
     }
     isPaused = !isPaused;  
     if (isPaused) {  
         noLoop();
         document.getElementById('startorstop').textContent = 'Start';
-        document.getElementById('startorstop').parentElement.style.backgroundColor = '';
+        document.getElementById('startorstop').parentElement.classList.remove('pressed');
     } else {
         loop();
-        document.getElementById('startorstop').parentElement.style.backgroundColor = '#FF6666';
+        document.getElementById('startorstop').parentElement.classList.add('pressed');
         document.getElementById('startorstop').textContent = 'Stop';
     }    
 }
@@ -160,21 +157,21 @@ function info() {
     if (document.getElementById('controlsorclose').textContent === 'Close') {
         document.getElementById('controlspopup').style.display = 'none';
         document.getElementById('controlsorclose').textContent = 'Controls';
-        document.getElementById('controlsorclose').parentElement.style.backgroundColor = '';
+        document.getElementById('controlsorclose').parentElement.classList.remove('pressed');
     } 
     if (document.getElementById('infoorclose').textContent === 'Info') {
         document.getElementById('infoorclose').textContent = 'Close';
         document.getElementById('infopopup').style.display = 'block';
-        document.getElementById('infoorclose').parentElement.style.backgroundColor = '#FF6666';
+        document.getElementById('infoorclose').parentElement.classList.add('pressed');
         isPaused = true;  
         if (document.getElementById('startorstop').textContent == 'Stop') {
             document.getElementById('startorstop').textContent = 'Start';
-            document.getElementById('startorstop').parentElement.style.backgroundColor = '';
+            document.getElementById('startorstop').parentElement.classList.remove('pressed');
         }
     } else if (document.getElementById('infoorclose').textContent === 'Close') {
         document.getElementById('infopopup').style.display = 'none';
         document.getElementById('infoorclose').textContent = 'Info';
-        document.getElementById('infoorclose').parentElement.style.backgroundColor = '';
+        document.getElementById('infoorclose').parentElement.classList.remove('pressed');
     }  
 }
 
@@ -182,21 +179,21 @@ function controls() {
     if (document.getElementById('infoorclose').textContent === 'Close') {
         document.getElementById('infopopup').style.display = 'none';
         document.getElementById('infoorclose').textContent = 'Info';
-        document.getElementById('infoorclose').parentElement.style.backgroundColor = '';
+        document.getElementById('infoorclose').parentElement.classList.remove('pressed');
     }
     if (document.getElementById('controlsorclose').textContent === 'Controls') {
         document.getElementById('controlsorclose').textContent = 'Close';
         document.getElementById('controlspopup').style.display = 'block';
-        document.getElementById('controlsorclose').parentElement.style.backgroundColor = '#FF6666';
+        document.getElementById('controlsorclose').parentElement.classList.add('pressed');
         isPaused = true;  
         if (document.getElementById('startorstop').textContent == 'Stop') {
             document.getElementById('startorstop').textContent = 'Start';
-            document.getElementById('startorstop').parentElement.style.backgroundColor = '';
+            document.getElementById('startorstop').parentElement.classList.remove('pressed');
         }
     } else if (document.getElementById('controlsorclose').textContent === 'Close') {
         document.getElementById('controlspopup').style.display = 'none';
         document.getElementById('controlsorclose').textContent = 'Controls';
-        document.getElementById('controlsorclose').parentElement.style.backgroundColor = '';
+        document.getElementById('controlsorclose').parentElement.classList.remove('pressed');
     } 
 }
 

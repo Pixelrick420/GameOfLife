@@ -75,7 +75,7 @@ h1{
 }
 
 canvas{
-    border: 0.5vh solid rgb(101, 101, 101);
+    border: 0.5vh solid rgb(109, 109, 109);
 }
 
 a{
@@ -122,4 +122,10 @@ button {
 button:hover {
     color: aliceblue;
     background-position: right bottom;
+}
+
+.pressed{
+    background: linear-gradient(to right, #dd0f57 100%, #000000 1%);
+    background-size: 200% 100%;
+    background-position: left bottom;
 }
