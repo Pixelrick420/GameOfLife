@@ -10,6 +10,9 @@ const size = Math.min(Math.floor(1200 / cols), Math.floor(700 / rows));
 let canvas;
 let drawInterval;
 
+const aliveColor = '#FFFFFF'
+const deadColor = '#000000'
+
 function setup() {
     smooth();
     frameRate(framerate);
@@ -29,7 +32,7 @@ function setup() {
 }
 
 function draw() {
-    background(0);
+    background(100);
 
     drawGrid();
     if (!isPaused) {  
@@ -39,7 +42,6 @@ function draw() {
 
 function drawGrid() {
     noStroke();
-    fill('#DD5555'); 
     beginShape(QUADS);
 
     for (let r = 0; r < curState.length; r++) {
@@ -49,9 +51,9 @@ function drawGrid() {
             const isAlive = curState[r][c];
 
             if (isAlive) {
-                fill('#55CC55'); 
+                fill(aliveColor); 
             } else {
-                fill('#DD5555'); 
+                fill(deadColor); 
             }
 
             vertex(x, y);
@@ -70,13 +72,13 @@ function showRect(row, col, isAlive) {
     const y = row * size - gap; 
     
     if (isAlive) {
-        fill('#55CC55');
+        fill(aliveColor);
         stroke(86, 78, 88);
         strokeWeight(1); 
         strokeCap(ROUND); 
     } else {
         noStroke();
-        fill('#DD5555');
+        fill(deadColor);
     }
     
     rect(x, y, size - (gap * 2), size - (gap * 2), size / 6);
