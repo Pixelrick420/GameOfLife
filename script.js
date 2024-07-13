@@ -1,6 +1,6 @@
-const cols = 150;
-const rows = 100;
-const framerate = 40;
+const cols = 120;
+const rows = 75;
+const framerate = 8;
 
 
 const gap = 0.3;
@@ -234,7 +234,7 @@ function reset() {
 function randomize() {
     for (let r = 0; r < curState.length; r++) {  
         for (let c = 0; c < curState[r].length; c++) {  
-            curState[r][c] = Math.floor(Math.random() * 1.3);  
+            curState[r][c] = Math.floor(Math.random() * 1.1);  
         }
     }
 }
