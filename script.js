@@ -3,7 +3,7 @@ const rows = 75;
 const framerate = 10;
 
 
-const gap = 0.3;
+const gap = 0.5;
 let isPaused = true;  
 let curState = [];  
 const size = Math.min(Math.floor(1200 / cols), Math.floor(700 / rows));
